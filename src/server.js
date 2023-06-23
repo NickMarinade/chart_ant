@@ -4,27 +4,66 @@ const { ApolloServer, gql } = require('apollo-server');
 const typeDefs = gql`
   type DataPoint {
     year: Int
-    gdp: Float
+    number: Float
+  }
+
+  type DataObject {
     name: String
+    data: [DataPoint]
   }
 
   type Query {
-    data: [DataPoint]
+    data: [DataObject]
   }
 `;
 
 // Provide fake data for the chart
 const fakeData = [
-  { year: 2015, gdp: 2.3, name: 'Organizing routes' },
-  { year: 2016, gdp: 3.1, name: 'Organizing routes' },
-  { year: 2017, gdp: 4.2, name: 'Organizing routes' },
-  { year: 2018, gdp: 5.8, name: 'Organizing routes' },
-  { year: 2019, gdp: 7.5, name: 'Organizing routes' },
-  { year: 2015, gdp: 1.5, name: 'Monitor delivery operations' },
-  { year: 2016, gdp: 2.2, name: 'Monitor delivery operations' },
-  { year: 2017, gdp: 3.2, name: 'Monitor delivery operations' },
-  { year: 2018, gdp: 4.6, name: 'Monitor delivery operations' },
-  { year: 2019, gdp: 6.1, name: 'Monitor delivery operations' },
+  {
+    name: 'Total Packages Delivered',
+    data: [
+      { year: 2020, number: 50000 },
+      { year: 2021, number: 80000 },
+      { year: 2022, number: 110000 },
+      { year: 2023, number: 150000 },
+    ],
+  },
+  {
+    name: 'Total Distance',
+    data: [
+      { year: 2020, number: 200000 },
+      { year: 2021, number: 250000 },
+      { year: 2022, number: 300000 },
+      { year: 2023, number: 350000 },
+    ],
+  },
+  {
+    name: 'Total Earnings',
+    data: [
+      { year: 2020, number: 60000 },
+      { year: 2021, number: 90000 },
+      { year: 2022, number: 120000 },
+      { year: 2023, number: 180000 },
+    ],
+  },
+  {
+    name: 'Total Drivers',
+    data: [
+      { year: 2020, number: 45000 },
+      { year: 2021, number: 55000 },
+      { year: 2022, number: 70000 },
+      { year: 2023, number: 90000 },
+    ],
+  },
+  {
+    name: 'Total Clients',
+    data: [
+      { year: 2020, number: 35000 },
+      { year: 2021, number: 40000 },
+      { year: 2022, number: 50000 },
+      { year: 2023, number: 60000 },
+    ],
+  },
 ];
 
 // Provide a resolver for the "data" query

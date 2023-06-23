@@ -12,7 +12,7 @@ const Chart = () => {
     fetch('http://localhost:4000', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query: '{ data { year gdp name } }' }),
+      body: JSON.stringify({ query: '{ data { name data { year number } } }' }),
     })
       .then((response) => {
         if (!response.ok) {
@@ -34,14 +34,13 @@ const Chart = () => {
   };
 
   const config: LineConfig = {
-    data,
+    data: data.flatMap((item) =>
+      item.data.map((dataItem: any) => ({ name: item.name, ...dataItem }))
+    ),
     xField: 'year',
-    yField: 'gdp',
+    yField: 'number',
     seriesField: 'name',
     yAxis: {
-      label: {
-        formatter: (v: any) => `${(v / 10e8).toFixed(1)} B`,
-      },
     },
     smooth: true,
     animation: {
