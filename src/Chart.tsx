@@ -33,6 +33,10 @@ const Chart = () => {
       });
   };
 
+  const chartStyle = {
+    height: '40vh', // Specify the desired height here
+  };
+
   const config: LineConfig = {
     data: data.flatMap((item) =>
       item.data.map((dataItem: any) => ({ name: item.name, ...dataItem }))
@@ -51,7 +55,7 @@ const Chart = () => {
     },
   };
 
-  return <Line {...config} />;
+  return <Line {...config} style={chartStyle} />;
 };
 
 export default Chart;
