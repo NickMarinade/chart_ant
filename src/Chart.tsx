@@ -12,7 +12,7 @@ const Chart = () => {
     fetch('http://localhost:4000', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query: '{ data { name data { year number } } }' }),
+      body: JSON.stringify({ query: '{ data { name data { delivery number } } }' }),
     })
       .then((response) => {
         if (!response.ok) {
@@ -34,17 +34,20 @@ const Chart = () => {
   };
 
   const chartStyle = {
-    height: '40vh', // Specify the desired height here
+    height: '40vh', // Specify the desired height
   };
 
   const config: LineConfig = {
     data: data.flatMap((item) =>
       item.data.map((dataItem: any) => ({ name: item.name, ...dataItem }))
     ),
-    xField: 'year',
+    xField: 'delivery',
     yField: 'number',
     seriesField: 'name',
-    yAxis: {
+    xAxis: {
+      label: {
+        formatter: (value: any) => `Delivery ${value}`, // Add a label formatter to display "Delivery" prefix
+      },
     },
     smooth: true,
     animation: {

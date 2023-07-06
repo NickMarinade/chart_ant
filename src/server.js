@@ -1,9 +1,9 @@
 const { ApolloServer, gql } = require('apollo-server');
 
-// Define your GraphQL schema
+// Define GraphQL schema
 const typeDefs = gql`
   type DataPoint {
-    year: Int
+    delivery: Int
     number: Float
   }
 
@@ -17,59 +17,75 @@ const typeDefs = gql`
   }
 `;
 
-// Provide fake data for the chart
 const fakeData = [
-  {
-    name: 'Total Packages Delivered',
-    data: [
-      { year: 2020, number: 50000 },
-      { year: 2021, number: 80000 },
-      { year: 2022, number: 110000 },
-      { year: 2023, number: 150000 },
-    ],
-  },
   {
     name: 'Total Distance',
     data: [
-      { year: 2020, number: 200000 },
-      { year: 2021, number: 250000 },
-      { year: 2022, number: 300000 },
-      { year: 2023, number: 350000 },
+      { delivery: 123, number: 120 },
+      { delivery: 124, number: 330 },
+      { delivery: 125, number: 450 },
+      { delivery: 126, number: 100 },
     ],
   },
   {
-    name: 'Total Earnings',
+    name: 'Total Stops Made',
     data: [
-      { year: 2020, number: 60000 },
-      { year: 2021, number: 90000 },
-      { year: 2022, number: 120000 },
-      { year: 2023, number: 180000 },
+      { delivery: 123, number: 2 },
+      { delivery: 124, number: 4 },
+      { delivery: 125, number: 4 },
+      { delivery: 126, number: 1 },
     ],
   },
   {
-    name: 'Total Drivers',
+    name: 'Total Time Spent',
     data: [
-      { year: 2020, number: 45000 },
-      { year: 2021, number: 55000 },
-      { year: 2022, number: 70000 },
-      { year: 2023, number: 90000 },
+      { delivery: 123, number: 2 },
+      { delivery: 124, number: 4 },
+      { delivery: 125, number: 8 },
+      { delivery: 126, number: 2 },
     ],
   },
   {
-    name: 'Total Clients',
+    name: 'Average Time Spent Between Stops',
     data: [
-      { year: 2020, number: 35000 },
-      { year: 2021, number: 40000 },
-      { year: 2022, number: 50000 },
-      { year: 2023, number: 60000 },
+      { delivery: 123, number: 0 }, // Placeholder value, will be calculated
+      { delivery: 124, number: 0 }, // Placeholder value, will be calculated
+      { delivery: 125, number: 0 }, // Placeholder value, will be calculated
+      { delivery: 126, number: 0 }, // Placeholder value, will be calculated
+    ],
+  },
+  {
+    name: 'Average Distance Between Stops',
+    data: [
+      { delivery: 123, number: 0 }, // Placeholder value, will be calculated
+      { delivery: 124, number: 0 }, // Placeholder value, will be calculated
+      { delivery: 125, number: 0 }, // Placeholder value, will be calculated
+      { delivery: 126, number: 0 }, // Placeholder value, will be calculated
     ],
   },
 ];
 
-// Provide a resolver for the "data" query
+// resolver for the "data" query
 const resolvers = {
   Query: {
-    data: () => fakeData,
+    data: () => {
+      // Calculate the average time spent per stop
+      fakeData[3].data.forEach((dataPoint, index) => {
+        const totalTimeSpent = fakeData[2].data[index].number;
+        const totalStopsMade = fakeData[1].data[index].number;
+        const averageTimePerStop = totalTimeSpent / totalStopsMade;
+        fakeData[3].data[index].number = averageTimePerStop;
+      });
+
+      fakeData[4].data.forEach((dataPoint, index) => {
+        const totalDistance = fakeData[0].data[index].number;
+        const totalStopsMade = fakeData[1].data[index].number;
+        const averageDistanceBetweenStops = totalDistance / (totalStopsMade);
+        fakeData[4].data[index].number = averageDistanceBetweenStops;
+      });
+
+      return fakeData;
+    },
   },
 };
 

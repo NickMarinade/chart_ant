@@ -2,7 +2,6 @@ import React from 'react';
 import { Layout } from 'antd';
 import Chart from './Chart';
 import Card from 'antd/es/card/Card';
-import Stats from './Stats';
 import { Button } from 'antd';
 
 const { Header, Content, Footer } = Layout;
@@ -27,9 +26,6 @@ const Dashboard: React.FC<DashboardProps> = ({ isDarkMode, handleClick }) => {
       <Content style={{ minHeight: 'calc(100vh - 134px)', margin: '0px 20px' }}>
         <Card>
           <Chart />
-        </Card>
-        <Card style={{ marginTop: 20, width: "25vw"}}>
-          <Stats />
         </Card>
       </Content>
       <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer>
