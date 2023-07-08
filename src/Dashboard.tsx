@@ -5,6 +5,7 @@ import Card from 'antd/es/card/Card';
 import { Button } from 'antd';
 import ProgressBar from './ProgressBar';
 import Title from 'antd/es/typography/Title';
+import DeliveryInProgress from './DeliveryTime';
 
 const { Header, Content, Footer } = Layout;
 
@@ -30,10 +31,17 @@ const Dashboard: React.FC<DashboardProps> = ({ isDarkMode, handleClick }) => {
         <Title level={2}>Deliveries Overview</Title>
           <Chart />
         </Card>
+        <div style={{ display: 'flex',  width: '100%', justifyContent: 'space-between'}} >
         <Card style={{ marginTop: 20, width: '33%'}}>
         <Title level={2}>Daily Deliveries Progress</Title>
           <ProgressBar />
         </Card>
+        <Card style={{ marginTop: 20, width: '33%'}}>
+        <Title level={2}>Delivery 127 In Progress</Title>
+          <DeliveryInProgress />
+        </Card>
+        
+        </div>
       </Content>
       <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer>
     </Layout>
