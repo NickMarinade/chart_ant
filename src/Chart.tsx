@@ -8,29 +8,29 @@ const Chart = () => {
     asyncFetch();
   }, []);
 
-  const asyncFetch = () => {
-    fetch('http://localhost:4000', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query: '{ data { name data { delivery number } } }' }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch data');
-        }
-        return response.json();
-      })
-      .then((json) => {
-        const fetchedData = json.data?.data;
-        if (Array.isArray(fetchedData)) {
-          setData(fetchedData);
-        } else {
-          throw new Error('Invalid data format');
-        }
-      })
-      .catch((error) => {
-        console.log('Fetch data failed:', error);
+  const asyncFetch = async () => {
+    try {
+      const response = await fetch('http://localhost:4000', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: '{ data { name data { delivery number } } }' }),
       });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch data');
+      }
+
+      const json = await response.json();
+      const fetchedData = json.data?.data;
+
+      if (Array.isArray(fetchedData)) {
+        setData(fetchedData);
+      } else {
+        throw new Error('Invalid data format');
+      }
+    } catch (error) {
+      console.log('Fetch data failed:', error);
+    }
   };
 
   const chartStyle = {
