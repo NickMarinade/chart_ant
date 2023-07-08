@@ -10,8 +10,8 @@ const ProgressBar: React.FC = () => (
       <Tooltip title="4 done / 4 in progress / 2 to do">
         <Progress percent={80} success={{ percent: 40 }}  type="circle" />
       </Tooltip>
-      <Tooltip title="3 done / 3 in progress / 4 to do">
-        <Progress percent={60} success={{ percent: 30 }} type="circle" />
+      <Tooltip title="1 of 5 drivers is not on route">
+        <Progress status="exception" percent={90} type="circle" />
       </Tooltip>
       <Tooltip title="All packages have been picked up">
         <Progress percent={100} type="circle" />

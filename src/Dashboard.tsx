@@ -6,6 +6,7 @@ import { Button } from 'antd';
 import ProgressBar from './ProgressBar';
 import Title from 'antd/es/typography/Title';
 import DeliveryInProgress from './DeliveryTime';
+import CalendarCard from './CalendarCard';
 
 const { Header, Content, Footer } = Layout;
 
@@ -37,10 +38,13 @@ const Dashboard: React.FC<DashboardProps> = ({ isDarkMode, handleClick }) => {
           <ProgressBar />
         </Card>
         <Card style={{ marginTop: 20, width: '33%'}}>
+        <Title level={2}>Calendar</Title>
+          <CalendarCard />
+        </Card>
+        <Card style={{ marginTop: 20, width: '33%'}}>
         <Title level={2}>Delivery 127 In Progress</Title>
           <DeliveryInProgress />
         </Card>
-        
         </div>
       </Content>
       <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer>
